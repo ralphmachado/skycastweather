@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currency Exchange</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-currency">
+
+  <!-- NAV -->
+  <nav class="topnav">
+    <div class="topnav__brand">
+      <svg class="brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <span>SkyCast</span>
+    </div>
+    <div class="topnav__links">
+      <a href="index.html" class="topnav__link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+        Weather
+      </a>
+      <a href="currency.html" class="topnav__link topnav__link--active">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><path d="M12 6v2m0 8v2"/></svg>
+        Currency
+      </a>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="currency-hero">
+    <div class="currency-hero__text">
+      <p class="currency-hero__eyebrow">Live Exchange Rates</p>
+      <h1 class="currency-hero__title">Currency <em>Converter</em></h1>
+      <p class="currency-hero__sub">Powered by ExchangeRate-API &nbsp;·&nbsp; Cached for 60 min</p>
+    </div>
+    <div class="currency-hero__bg-glow"></div>
+  </div>
+
+  <!-- CONVERTER CARD -->
+  <section class="container converter-section">
+    <div class="converter-card">
+
+      <!-- Amount row -->
+      <div class="conv-row">
+        <label class="conv-label" for="amt">Amount</label>
+        <input type="number" id="amt" class="conv-input conv-input--amount" value="1" min="0" placeholder="Enter amount">
+      </div>
+
+      <!-- Currency selects row -->
+      <div class="conv-row conv-row--selects">
+        <div class="conv-group">
+          <label class="conv-label" for="from-c">From</label>
+          <div class="select-wrap">
+            <select id="from-c" class="conv-select"></select>
+          </div>
+        </div>
+
+        <button class="swap-currencies" id="swap-btn" title="Swap currencies">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>
+          </svg>
+        </button>
+
+        <div class="conv-group">
+          <label class="conv-label" for="to-c">To</label>
+          <div class="select-wrap">
+            <select id="to-c" class="conv-select"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Convert button -->
+      <button id="btn" class="convert-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        Convert
+      </button>
+
+      <!-- Result display -->
+      <div class="result-display" id="result-display" style="display:none">
+        <div class="result-display__main">
+          <span class="result-display__from" id="res-from">--</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span class="result-display__to" id="res-to">--</span>
+        </div>
+        <div class="result-display__rate" id="rt">--</div>
+        <div class="result-display__cache" id="cache-label"></div>
+      </div>
+
+    </div>
+
+    <!-- Info tiles below converter -->
+    <div class="currency-tiles">
+      <div class="ctile">
+        <div class="ctile__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <p class="ctile__title">Cached Locally</p>
+        <p class="ctile__body">Rates are stored in sessionStorage for 60 minutes to avoid repeat API hits.</p>
+      </div>
+      <div class="ctile">
+        <div class="ctile__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <p class="ctile__title">Rate Limited</p>
+        <p class="ctile__body">A debounce prevents rapid consecutive calls when the button is clicked quickly.</p>
+      </div>
+      <div class="ctile">
+        <div class="ctile__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <p class="ctile__title">10 Currencies</p>
+        <p class="ctile__body">USD, CAD, EUR, GBP, JPY, AUD, CHF, CNY, INR, MXN and more available.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>Assignment 2 &nbsp;·&nbsp; Bow Valley College &nbsp;·&nbsp; API Services</p>
+  </footer>
+
+  <script src="currency.js"></script>
+  <script>
+    // Swap button logic
+    document.getElementById("swap-btn").addEventListener("click", () => {
+      const fromSel = document.getElementById("from-c");
+      const toSel   = document.getElementById("to-c");
+      const tmp     = fromSel.value;
+      fromSel.value = toSel.value;
+      toSel.value   = tmp;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calgary Weather</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-weather">
+
+  <!-- NAV -->
+  <nav class="topnav">
+    <div class="topnav__brand">
+      <svg class="brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <span>SkyCast</span>
+    </div>
+    <div class="topnav__links">
+      <a href="index.html" class="topnav__link topnav__link--active">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+        Weather
+      </a>
+      <a href="currency.html" class="topnav__link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><path d="M12 6v2m0 8v2"/></svg>
+        Currency
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO BAND -->
+  <div class="weather-hero">
+    <div class="weather-hero__left">
+      <div class="location-line">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Calgary, AB — Canada
+      </div>
+      <div class="big-temp-wrap">
+        <span class="big-temp" id="temp">--</span>
+        <span class="big-temp-unit">°C</span>
+      </div>
+      <p class="big-desc" id="desc">Loading conditions…</p>
+      <p class="big-time" id="time"></p>
+    </div>
+    <div class="weather-hero__right">
+      <img id="weather-icon" src="" alt="" class="hero-icon">
+      <div class="hero-meta" id="hero-meta" style="display:none">
+        <div class="hero-meta__item">
+          <span class="hero-meta__label">Feels like</span>
+          <span class="hero-meta__val" id="feels">--</span>
+        </div>
+        <div class="hero-meta__item">
+          <span class="hero-meta__label">Humidity</span>
+          <span class="hero-meta__val" id="humidity">--</span>
+        </div>
+        <div class="hero-meta__item">
+          <span class="hero-meta__label">Wind</span>
+          <span class="hero-meta__val" id="wind">--</span>
+        </div>
+        <div class="hero-meta__item">
+          <span class="hero-meta__label">Pressure</span>
+          <span class="hero-meta__val" id="pressure">--</span>
+        </div>
+      </div>
+    </div>
+    <div class="weather-hero__bg-glow"></div>
+  </div>
+
+  <!-- DETAIL STRIP -->
+  <section class="detail-strip container">
+    <div class="detail-card detail-card--wide" id="status-card">
+      <div class="detail-card__icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <p class="detail-card__label">Data source</p>
+        <p class="detail-card__val" id="cache-status">Fetching live data…</p>
+      </div>
+    </div>
+    <div class="detail-card">
+      <div class="detail-card__icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+      </div>
+      <div>
+        <p class="detail-card__label">Feels Like</p>
+        <p class="detail-card__val" id="feels-strip">--°C</p>
+      </div>
+    </div>
+    <div class="detail-card">
+      <div class="detail-card__icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+      </div>
+      <div>
+        <p class="detail-card__label">Humidity</p>
+        <p class="detail-card__val" id="humidity-strip">--%</p>
+      </div>
+    </div>
+    <div class="detail-card">
+      <div class="detail-card__icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+      </div>
+      <div>
+        <p class="detail-card__label">Wind Speed</p>
+        <p class="detail-card__val" id="wind-strip">-- km/h</p>
+      </div>
+    </div>
+    <div class="detail-card">
+      <div class="detail-card__icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <div>
+        <p class="detail-card__label">Pressure</p>
+        <p class="detail-card__val" id="pressure-strip">-- hPa</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HUMIDITY BAR SECTION -->
+  <section class="container section-panel">
+    <div class="panel-row">
+      <div class="panel panel--humidity">
+        <h3 class="panel__title">Humidity Level</h3>
+        <div class="humidity-bar-wrap">
+          <div class="humidity-bar">
+            <div class="humidity-bar__fill" id="humidity-bar-fill" style="width:0%"></div>
+          </div>
+          <span class="humidity-bar__label" id="humidity-bar-label">--%</span>
+        </div>
+        <div class="humidity-scale">
+          <span>Dry</span><span>Comfortable</span><span>Humid</span>
+        </div>
+      </div>
+      <div class="panel panel--about">
+        <h3 class="panel__title">About This Data</h3>
+        <p class="panel__body">Live conditions pulled from <strong>OpenWeatherMap</strong> for Calgary, AB. Results are stored in <code>localStorage</code> for 10 minutes — so quick page reloads won't burn through API calls. After that window it fetches fresh data automatically.</p>
+        <button class="refresh-btn" id="refresh-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Force Refresh
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>Assignment 2 &nbsp;·&nbsp; Bow Valley College &nbsp;·&nbsp; API Services</p>
+  </footer>
+
+  <script src="weather.js"></script>
+  <script>
+    // Hook refresh button — clears cache and re-fetches
+    document.getElementById("refresh-btn").addEventListener("click", () => {
+      localStorage.removeItem("weatherData");
+      localStorage.removeItem("weatherTime");
+      getWeather();
+    });
+  </script>
+</body>
+</html>
